@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+  <title>Pusher Test</title>
+  <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+  <script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = false;
+
+    const pusher = new Pusher('926e5f03028e96a80426', {
+      cluster: 'ap2'
+    });
+
+    const channel = pusher.subscribe('message');
+    channel.bind('trigger', function(data) {
+      document.getElementById("lat").innerHTML = `lat=${data.message.lat}`
+      document.getElementById("long").innerHTML = `long=${data.message.long}`
+    });
+  </script>
+</head>
+<body>
+  <h1>TRACK</h1>
+  <p>
+    channel <code>message</code>
+    event <code>trigger</code>
+  </p>
+  <p id="lat">lat: </p>
+  <p id="long">long: </p>
+</body>
